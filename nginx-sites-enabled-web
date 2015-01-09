@@ -1,0 +1,249 @@
+server {
+  listen 80 default_server;
+  server_name www-dev;
+
+  access_log /var/log/nginx/zbx-access.log combined; # buffer=8k;
+  error_log /var/log/nginx/zbx-error.log info;
+
+  root /Users/mitch/Documents/Clinkle/web/member/public/;
+  passenger_enabled on;
+  rails_env development;
+
+  location /web/ {
+    proxy_pass https://api-dev.clinkle.com/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3000/web/ {
+    proxy_pass http://localhost:3000/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3001/web/ {
+    proxy_pass http://localhost:3001/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3002/web/ {
+    proxy_pass http://localhost:3002/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3003/web/ {
+    proxy_pass http://localhost:3003/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+}
+
+server {
+  server_name internal-dev;
+
+  access_log /var/log/nginx/zbx-access.log combined; # buffer=8k;
+  error_log /var/log/nginx/zbx-error.log info;
+
+  root /Users/mitch/Documents/Clinkle/web/internal/public/;
+  passenger_enabled on;
+  rails_env development;
+
+  location /debug {
+    proxy_pass http://localhost:8080/debug;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /web/ {
+    proxy_pass http://localhost:8080/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /api/ {
+    rewrite ^/api(.*)$ $1 break;
+    auth_basic    off;
+    proxy_pass    http://localhost:8080/;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+    proxy_set_header        Host $http_host;
+  }
+
+  location /test/3000/web/ {
+    proxy_pass http://localhost:3000/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3001/web/ {
+    proxy_pass http://localhost:3001/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3002/web/ {
+    proxy_pass http://localhost:3002/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3003/web/ {
+    proxy_pass http://localhost:3003/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+}
+
+server {
+  server_name support-dev;
+
+  access_log /var/log/nginx/zbx-access.log combined; # buffer=8k;
+  error_log /var/log/nginx/zbx-error.log info;
+
+  root /Users/mitch/Documents/Clinkle/web/support/public/;
+  passenger_enabled on;
+  rails_env development;
+
+  location /web/ {
+    proxy_pass https://api-dev.clinkle.com/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3000/web/ {
+    proxy_pass http://localhost:3000/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3001/web/ {
+    proxy_pass http://localhost:3001/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3002/web/ {
+    proxy_pass http://localhost:3002/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3003/web/ {
+    proxy_pass http://localhost:3003/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+}
+
+server {
+  server_name ambassador-dev;
+
+  access_log /var/log/nginx/zbx-access.log combined; # buffer=8k;
+  error_log /var/log/nginx/zbx-error.log info;
+
+  root /Users/mitch/Documents/Clinkle/web/ambassador/public/;
+  passenger_enabled on;
+  rails_env development;
+
+  location /web/ {
+    proxy_pass https://api-dev.clinkle.com/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3000/web/ {
+    proxy_pass http://localhost:3000/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3001/web/ {
+    proxy_pass http://localhost:3001/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3002/web/ {
+    proxy_pass http://localhost:3002/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3003/web/ {
+    proxy_pass http://localhost:3003/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+}
+
+log_format upstreamlog '$time_local:  to: $upstream_addr: $request';
+
+server {
+  listen 50000;
+
+  access_log /var/log/nginx/jasmine-access.log upstreamlog;
+  error_log /var/log/nginx/jasmine-error.log info;
+
+  location / {
+    proxy_pass http://localhost:8888;
+  }
+
+  location /web/ {
+    proxy_pass http://localhost:3000/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3000/web/ {
+    proxy_pass http://localhost:3000/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3001/web/ {
+    proxy_pass http://localhost:3001/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3002/web/ {
+    proxy_pass http://localhost:3002/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+
+  location /test/3003/web/ {
+    proxy_pass http://localhost:3003/web/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+  }
+}

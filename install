@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo chmod -R -u+rwx ..
+
+ln -sf /Users/jasoncbenn/code/clinkle-scripts/nginx-config /usr/local/etc/nginx/nginx.conf
+ln -sf /Users/jasoncbenn/code/clinkle-scripts/nginx-sites-enabled-web /usr/local/etc/nginx/sites-enabled/web

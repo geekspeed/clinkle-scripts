@@ -1,0 +1,39 @@
+worker_processes  1;
+
+error_log /usr/local/etc/nginx/logs/error.log;
+
+events {
+  worker_connections  1024;
+}
+
+http {
+  include       mime.types;
+  include /usr/local/etc/nginx/sites-enabled/*;
+  default_type  application/octet-stream;
+
+  # passenger_root /Users/jasoncbenn/.rvm/gems/ruby-1.9.3-p448/gems/passenger-4.0.26;
+  passenger_root /usr/local/opt/passenger/libexec/lib/phusion_passenger/locations.ini;
+  # passenger_ruby /usr/bin/ruby
+  passenger_ruby /Users/jasoncbenn/.rvm/wrappers/ruby-1.9.3-p448/ruby;
+
+  sendfile        off;
+
+  keepalive_timeout  65;
+
+  server {
+    listen       80;
+    server_name  localhost;
+
+    location / {
+      root   html;
+      index  index.html index.htm;
+    }
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+      root   html;
+    }
+  }
+}
