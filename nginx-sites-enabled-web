@@ -5,7 +5,7 @@ server {
   access_log /var/log/nginx/zbx-access.log combined; # buffer=8k;
   error_log /var/log/nginx/zbx-error.log info;
 
-  root /Users/mitch/Documents/Clinkle/web/member/public/;
+  root /Users/jasoncbenn/code/clinkle-web/member/public/;
   passenger_enabled on;
   rails_env development;
 
@@ -51,7 +51,7 @@ server {
   access_log /var/log/nginx/zbx-access.log combined; # buffer=8k;
   error_log /var/log/nginx/zbx-error.log info;
 
-  root /Users/mitch/Documents/Clinkle/web/internal/public/;
+  root /Users/jasoncbenn/code/clinkle-web/internal/public/;
   passenger_enabled on;
   rails_env development;
 
@@ -114,8 +114,8 @@ server {
   access_log /var/log/nginx/zbx-access.log combined; # buffer=8k;
   error_log /var/log/nginx/zbx-error.log info;
 
-  root /Users/mitch/Documents/Clinkle/web/support/public/;
-  passenger_enabled on;
+  root /Users/jasoncbenn/code/clinkle-web/support/public/;
+  # passenger_enabled on;
   rails_env development;
 
   location /web/ {
@@ -160,7 +160,7 @@ server {
   access_log /var/log/nginx/zbx-access.log combined; # buffer=8k;
   error_log /var/log/nginx/zbx-error.log info;
 
-  root /Users/mitch/Documents/Clinkle/web/ambassador/public/;
+  root /Users/jasoncbenn/code/clinkle-web/ambassador/public/;
   passenger_enabled on;
   rails_env development;
 
